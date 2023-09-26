@@ -6,6 +6,7 @@ use alloc::{boxed::Box, vec::Vec};
 
 /// Trait that abstracts away an underlying API for a top-level object deserializer.
 /// The underlying API can provide pre-parsed i64/u64 or pre-bundled boxed slices.
+
 pub trait TopDecodeInput: Sized {
     type NestedBuffer: NestedDecodeInput;
 
