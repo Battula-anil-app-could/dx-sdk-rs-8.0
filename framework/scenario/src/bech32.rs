@@ -12,6 +12,6 @@ pub fn decode(bech32_address: &str) -> Address {
 }
 
 pub fn encode(address: &Address) -> String {
-    bech32::encode("erd", address.as_bytes().to_base32(), Variant::Bech32)
+    bech32::encode("moa", address.as_bytes().to_base32(), Variant::Bech32)
         .expect("bech32 encode error")
 }
