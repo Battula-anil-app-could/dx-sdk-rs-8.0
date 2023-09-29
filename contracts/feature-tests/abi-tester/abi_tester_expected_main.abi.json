@@ -30,7 +30,7 @@
             "Contract constructor."
         ],
         "payableInTokens": [
-            "MOA"
+            "MOAX"
         ],
         "inputs": [
             {
@@ -364,10 +364,10 @@
             ]
         },
         {
-            "name": "payable_moa",
+            "name": "payable_moax",
             "mutability": "mutable",
             "payableInTokens": [
-                "MOA"
+                "MOAX"
             ],
             "inputs": [],
             "outputs": []

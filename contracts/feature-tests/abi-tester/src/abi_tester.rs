@@ -19,7 +19,7 @@ use only_nested::*;
 pub trait AbiTester {
     /// Contract constructor.
     #[init]
-    #[payable("MOA")]
+    #[payable("MOAX")]
     fn init(&self, _constructor_arg_1: i32, _constructor_arg_2: OnlyShowsUpInConstructor) {}
 
     /// Example endpoint docs.
@@ -151,8 +151,8 @@ pub trait AbiTester {
     }
 
     #[endpoint]
-    #[payable("MOA")]
-    fn payable_moa(&self) {}
+    #[payable("MOAX")]
+    fn payable_moax(&self) {}
 
     #[endpoint]
     #[payable("TOKEN-FOR-ABI")]

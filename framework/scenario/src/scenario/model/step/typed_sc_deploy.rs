@@ -44,11 +44,11 @@ impl<OriginalResult> TypedScDeploy<OriginalResult> {
         self
     }
 
-    pub fn moa_value<A>(mut self, amount: A) -> Self
+    pub fn moax_value<A>(mut self, amount: A) -> Self
     where
         BigUintValue: From<A>,
     {
-        self.sc_deploy_step = self.sc_deploy_step.moa_value(amount);
+        self.sc_deploy_step = self.sc_deploy_step.moax_value(amount);
         self
     }
 

@@ -18,7 +18,7 @@ fn test_private_key_from_mnemonic() {
         public_key.to_string()
     );
     assert_eq!(
-        "moa1mlh7q3fcgrjeq0et65vaaxcw6m5ky8jhu296pdxpk9g32zga6uhs5rqfkd",
+        "moax1mlh7q3fcgrjeq0et65vaaxcw6m5ky8jhu296pdxpk9g32zga6uhselt2fz",
         address.to_string()
     );
 
@@ -34,7 +34,7 @@ fn test_private_key_from_mnemonic() {
         public_key.to_string()
     );
     assert_eq!(
-        "moa147877pc2tqv88yfvewhmdfuth845uqpsskky8kaalglzp6unem0qvk32m6",
+        "moax147877pc2tqv88yfvewhmdfuth845uqpsskky8kaalglzp6unem0qp26fy4",
         address.to_string()
     );
 }
@@ -45,6 +45,6 @@ fn test_load_from_pem() {
     let addr = wallet.address();
     assert_eq!(
         addr.to_bech32_string().unwrap(),
-        "moa1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssfq94h8"
+        "moax1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssyuwkgg"
     );
 }

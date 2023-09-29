@@ -69,10 +69,10 @@ impl ScQueryStep {
     where
         CC: ContractCall<StaticApi>,
     {
-        let (to_str, function, moa_value_expr, mandos_args) = process_contract_call(contract_call);
+        let (to_str, function, moax_value_expr, mandos_args) = process_contract_call(contract_call);
         assert!(
-            moa_value_expr.value.is_zero(),
-            "cannot send MOA value in queries"
+            moax_value_expr.value.is_zero(),
+            "cannot send MOAX value in queries"
         );
         self = self.to(to_str.as_str());
         self = self.function(function.as_str());

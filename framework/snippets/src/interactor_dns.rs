@@ -54,15 +54,15 @@ pub fn dns_address_for_name(name: &str) -> Address {
 fn test_compute_dns_address() {
     assert_eq!(
         bech32::encode(&compute_dns_address_for_shard_id(0)),
-        "moa1qqqqqqqqqqqqqpgqnhvsujzd95jz6fyv3ldmynlf97tscs9nqqqqcalux7"
+        "moax1qqqqqqqqqqqqqpgqnhvsujzd95jz6fyv3ldmynlf97tscs9nqqqq4p5le3"
     );
     assert_eq!(
         bech32::encode(&compute_dns_address_for_shard_id(1)),
-        "moa1qqqqqqqqqqqqqpgqysmcsfkqed279x6jvs694th4e4v50p4pqqqstkzp8l"
+        "moax1qqqqqqqqqqqqqpgqysmcsfkqed279x6jvs694th4e4v50p4pqqqsx2fzcs"
     );
     assert_eq!(
         bech32::encode(&compute_dns_address_for_shard_id(2)),
-        "moa1qqqqqqqqqqqqqpgqnk5fq8sgg4vc63ffzf7qez550xe2l5jgqqpq5vhzys"
+        "moax1qqqqqqqqqqqqqpgqnk5fq8sgg4vc63ffzf7qez550xe2l5jgqqpqesupml"
     );
 }
 
@@ -70,10 +70,10 @@ fn test_compute_dns_address() {
 fn test_dns_for_name() {
     assert_eq!(
         bech32::encode(&dns_address_for_name("test.dharitrix")),
-        "moa1qqqqqqqqqqqqqpgqplqkyugu5hesfqmpre80wn4x4zetdmsnqqvqt83nup"
+        "moax1qqqqqqqqqqqqqpgqplqkyugu5hesfqmpre80wn4x4zetdmsnqqvqxm6srw"
     );
     assert_eq!(
         bech32::encode(&dns_address_for_name("helloworld.dharitrix")),
-        "moa1qqqqqqqqqqqqqpgqhygyzhn4ch4lng83cjr4nray80kl5l3sqq8sfvaarv"
+        "moax1qqqqqqqqqqqqqpgqhygyzhn4ch4lng83cjr4nray80kl5l3sqq8sysk7ur"
     );
 }

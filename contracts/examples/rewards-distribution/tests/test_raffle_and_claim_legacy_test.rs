@@ -2,7 +2,7 @@
 
 use dharitri_sc::{
     codec::multi_types::MultiValue2,
-    types::{BigUint, MoaOrDctTokenIdentifier, MultiValueEncoded, OperationCompletionStatus},
+    types::{BigUint, MoaxOrDctTokenIdentifier, MultiValueEncoded, OperationCompletionStatus},
 };
 use dharitri_sc_scenario::{
     managed_token_id, rust_biguint,
@@ -113,7 +113,7 @@ fn test_raffle_and_claim() {
             for nonce in 1u64..=nft_count {
                 let amount = sc.compute_claimable_amount(
                     raffle_id,
-                    &MoaOrDctTokenIdentifier::moa(),
+                    &MoaxOrDctTokenIdentifier::moax(),
                     0,
                     nonce,
                 );
@@ -169,7 +169,7 @@ fn test_raffle_and_claim() {
             for (nonce, expected_reward) in std::iter::zip(nft_nonces, expected_rewards) {
                 let rewards = sc.compute_claimable_amount(
                     raffle_id,
-                    &MoaOrDctTokenIdentifier::moa(),
+                    &MoaxOrDctTokenIdentifier::moax(),
                     0,
                     nonce,
                 );
@@ -181,15 +181,15 @@ fn test_raffle_and_claim() {
             let reward_id_range_end = 0;
             let mut reward_tokens: MultiValueEncoded<
                 DebugApi,
-                MultiValue2<MoaOrDctTokenIdentifier<DebugApi>, u64>,
+                MultiValue2<MoaxOrDctTokenIdentifier<DebugApi>, u64>,
             > = MultiValueEncoded::new();
-            reward_tokens.push((MoaOrDctTokenIdentifier::moa(), 0).into());
+            reward_tokens.push((MoaxOrDctTokenIdentifier::moax(), 0).into());
             sc.claim_rewards(reward_id_range_start, reward_id_range_end, reward_tokens);
 
             // check that the flags which mark claimed rewards were set
             for nonce in nft_nonces {
                 let was_claimed = sc
-                    .was_claimed(raffle_id, &MoaOrDctTokenIdentifier::moa(), 0, nonce)
+                    .was_claimed(raffle_id, &MoaxOrDctTokenIdentifier::moax(), 0, nonce)
                     .get();
                 assert!(was_claimed);
             }
@@ -198,7 +198,7 @@ fn test_raffle_and_claim() {
 
     // confirm the received amount matches the sum of the queried rewards
     let alice_balance_after_claim: u64 = expected_rewards.iter().sum();
-    wrapper.check_moa_balance(&alice, &rust_biguint!(alice_balance_after_claim));
+    wrapper.check_moax_balance(&alice, &rust_biguint!(alice_balance_after_claim));
 
     // a second claim with the same nfts should succeed, but return no more rewards
     wrapper
@@ -207,13 +207,13 @@ fn test_raffle_and_claim() {
             let reward_id_range_end = 0;
             let mut reward_tokens: MultiValueEncoded<
                 DebugApi,
-                MultiValue2<MoaOrDctTokenIdentifier<DebugApi>, u64>,
+                MultiValue2<MoaxOrDctTokenIdentifier<DebugApi>, u64>,
             > = MultiValueEncoded::new();
-            reward_tokens.push((MoaOrDctTokenIdentifier::moa(), 0).into());
+            reward_tokens.push((MoaxOrDctTokenIdentifier::moax(), 0).into());
             sc.claim_rewards(reward_id_range_start, reward_id_range_end, reward_tokens);
         })
         .assert_ok();
 
     // check that a second claim does not modify the balance
-    wrapper.check_moa_balance(&alice, &rust_biguint!(alice_balance_after_claim));
+    wrapper.check_moax_balance(&alice, &rust_biguint!(alice_balance_after_claim));
 }

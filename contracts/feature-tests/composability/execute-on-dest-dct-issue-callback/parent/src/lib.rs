@@ -13,7 +13,7 @@ pub trait Parent {
     #[init]
     fn init(&self) {}
 
-    #[payable("MOA")]
+    #[payable("MOAX")]
     #[endpoint]
     fn deposit(&self) {}
 
@@ -30,7 +30,7 @@ pub trait Parent {
         self.child_contract_address().set(&child_contract_address);
     }
 
-    #[payable("MOA")]
+    #[payable("MOAX")]
     #[endpoint(executeOnDestIssueToken)]
     fn execute_on_dest_issue_token(
         &self,
@@ -38,12 +38,12 @@ pub trait Parent {
         token_ticker: ManagedBuffer,
         initial_supply: BigUint,
     ) {
-        let issue_cost = self.call_value().moa_value();
+        let issue_cost = self.call_value().moax_value();
         let child_contract_adress = self.child_contract_address().get();
         let _: IgnoreValue = self
             .child_proxy(child_contract_adress)
-            .issue_wrapped_moa(token_display_name, token_ticker, initial_supply)
-            .with_moa_transfer(issue_cost.clone_value())
+            .issue_wrapped_moax(token_display_name, token_ticker, initial_supply)
+            .with_moax_transfer(issue_cost.clone_value())
             .with_gas_limit(ISSUE_EXPECTED_GAS_COST)
             .execute_on_dest_context();
     }

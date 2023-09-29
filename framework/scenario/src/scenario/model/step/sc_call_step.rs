@@ -59,15 +59,15 @@ impl ScCallStep {
         self
     }
 
-    pub fn moa_value<A>(mut self, amount: A) -> Self
+    pub fn moax_value<A>(mut self, amount: A) -> Self
     where
         BigUintValue: From<A>,
     {
-        if !self.tx.dct_value.is_empty() && self.tx.moa_value.value > 0u32.into() {
-            panic!("Cannot transfer both MOA and DCT");
+        if !self.tx.dct_value.is_empty() && self.tx.moax_value.value > 0u32.into() {
+            panic!("Cannot transfer both MOAX and DCT");
         }
 
-        self.tx.moa_value = BigUintValue::from(amount);
+        self.tx.moax_value = BigUintValue::from(amount);
         self
     }
 
@@ -77,8 +77,8 @@ impl ScCallStep {
         U64Value: From<N>,
         BigUintValue: From<A>,
     {
-        if self.tx.moa_value.value > 0u32.into() {
-            panic!("Cannot transfer both MOA and DCT");
+        if self.tx.moax_value.value > 0u32.into() {
+            panic!("Cannot transfer both MOAX and DCT");
         }
 
         self.tx.dct_value.push(TxDCT {
@@ -119,15 +119,15 @@ impl ScCallStep {
     where
         CC: ContractCall<StaticApi>,
     {
-        let (to_str, function, moa_value_expr, scenario_args) =
+        let (to_str, function, moax_value_expr, scenario_args) =
             process_contract_call(contract_call);
         self = self.to(to_str.as_str());
 
         if self.tx.function.is_empty() {
             self = self.function(function.as_str());
         }
-        if self.tx.moa_value.value == 0u32.into() {
-            self = self.moa_value(moa_value_expr);
+        if self.tx.moax_value.value == 0u32.into() {
+            self = self.moax_value(moax_value_expr);
         }
         for arg in scenario_args {
             self = self.argument(arg.as_str());
@@ -218,9 +218,9 @@ where
             .into_vec(),
     )
     .unwrap();
-    let moa_value_expr = BigUintValue::from(normalized_cc.moa_payment);
+    let moax_value_expr = BigUintValue::from(normalized_cc.moax_payment);
     let scenario_args = convert_call_args(&normalized_cc.basic.arg_buffer);
-    (to_str, function, moa_value_expr, scenario_args)
+    (to_str, function, moax_value_expr, scenario_args)
 }
 
 pub fn convert_call_args(arg_buffer: &ManagedArgBuffer<StaticApi>) -> Vec<String> {

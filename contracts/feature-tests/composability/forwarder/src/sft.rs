@@ -4,10 +4,10 @@ use super::storage;
 
 #[dharitri_sc::module]
 pub trait ForwarderSftModule: storage::ForwarderStorageModule {
-    #[payable("MOA")]
+    #[payable("MOAX")]
     #[endpoint]
     fn sft_issue(&self, token_display_name: ManagedBuffer, token_ticker: ManagedBuffer) {
-        let issue_cost = self.call_value().moa_value();
+        let issue_cost = self.call_value().moax_value();
         let caller = self.blockchain().get_caller();
 
         self.send()
@@ -45,9 +45,9 @@ pub trait ForwarderSftModule: storage::ForwarderStorageModule {
             ManagedAsyncCallResult::Err(message) => {
                 // return issue cost to the caller
                 let (token_identifier, returned_tokens) =
-                    self.call_value().moa_or_single_fungible_dct();
-                if token_identifier.is_moa() && returned_tokens > 0 {
-                    self.send().direct_moa(caller, &returned_tokens);
+                    self.call_value().moax_or_single_fungible_dct();
+                if token_identifier.is_moax() && returned_tokens > 0 {
+                    self.send().direct_moax(caller, &returned_tokens);
                 }
 
                 self.last_error_message().set(&message.err_msg);

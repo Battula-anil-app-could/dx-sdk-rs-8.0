@@ -5,8 +5,8 @@ fn world() -> ScenarioWorld {
 }
 
 #[test]
-fn claim_moa_go() {
-    world().run("scenarios/claim-moa.scen.json");
+fn claim_moax_go() {
+    world().run("scenarios/claim-moax.scen.json");
 }
 
 #[test]
@@ -30,8 +30,8 @@ fn forward_go() {
 }
 
 #[test]
-fn fund_moa_and_dct_go() {
-    world().run("scenarios/fund-moa-and-dct.scen.json");
+fn fund_moax_and_dct_go() {
+    world().run("scenarios/fund-moax-and-dct.scen.json");
 }
 
 #[test]
@@ -40,8 +40,8 @@ fn set_accounts_go() {
 }
 
 #[test]
-fn withdraw_moa_go() {
-    world().run("scenarios/withdraw-moa.scen.json");
+fn withdraw_moax_go() {
+    world().run("scenarios/withdraw-moax.scen.json");
 }
 
 #[test]

@@ -42,31 +42,31 @@ pub trait RustTestingFrameworkTester: dummy_module::DummyModule {
     }
 
     #[endpoint]
-    fn get_moa_balance(&self) -> BigUint {
+    fn get_moax_balance(&self) -> BigUint {
         self.blockchain()
-            .get_sc_balance(&MoaOrDctTokenIdentifier::moa(), 0)
+            .get_sc_balance(&MoaxOrDctTokenIdentifier::moax(), 0)
     }
 
     #[endpoint]
     fn get_dct_balance(&self, token_id: TokenIdentifier, nonce: u64) -> BigUint {
         self.blockchain()
-            .get_sc_balance(&MoaOrDctTokenIdentifier::dct(token_id), nonce)
+            .get_sc_balance(&MoaxOrDctTokenIdentifier::dct(token_id), nonce)
     }
 
-    #[payable("MOA")]
+    #[payable("MOAX")]
     #[endpoint]
-    fn receive_moa(&self) -> BigUint {
-        self.call_value().moa_value().clone_value()
+    fn receive_moax(&self) -> BigUint {
+        self.call_value().moax_value().clone_value()
     }
 
-    #[payable("MOA")]
+    #[payable("MOAX")]
     #[endpoint]
-    fn recieve_moa_half(&self) {
+    fn recieve_moax_half(&self) {
         let caller = self.blockchain().get_caller();
-        let payment_amount = &*self.call_value().moa_value() / 2u32;
+        let payment_amount = &*self.call_value().moax_value() / 2u32;
         self.send().direct(
             &caller,
-            &MoaOrDctTokenIdentifier::moa(),
+            &MoaxOrDctTokenIdentifier::moax(),
             0,
             &payment_amount,
         );

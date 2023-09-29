@@ -55,31 +55,31 @@ fn crowdfunding_init_go() {
 }
 
 #[test]
-fn moa_crowdfunding_claim_failed_go() {
-    world().run("scenarios/moa-crowdfunding-claim-failed.scen.json");
+fn moax_crowdfunding_claim_failed_go() {
+    world().run("scenarios/moax-crowdfunding-claim-failed.scen.json");
 }
 
 #[test]
-fn moa_crowdfunding_claim_successful_go() {
-    world().run("scenarios/moa-crowdfunding-claim-successful.scen.json");
+fn moax_crowdfunding_claim_successful_go() {
+    world().run("scenarios/moax-crowdfunding-claim-successful.scen.json");
 }
 
 #[test]
-fn moa_crowdfunding_claim_too_early_go() {
-    world().run("scenarios/moa-crowdfunding-claim-too-early.scen.json");
+fn moax_crowdfunding_claim_too_early_go() {
+    world().run("scenarios/moax-crowdfunding-claim-too-early.scen.json");
 }
 
 #[test]
-fn moa_crowdfunding_fund_go() {
-    world().run("scenarios/moa-crowdfunding-fund.scen.json");
+fn moax_crowdfunding_fund_go() {
+    world().run("scenarios/moax-crowdfunding-fund.scen.json");
 }
 
 #[test]
-fn moa_crowdfunding_fund_too_late_go() {
-    world().run("scenarios/moa-crowdfunding-fund-too-late.scen.json");
+fn moax_crowdfunding_fund_too_late_go() {
+    world().run("scenarios/moax-crowdfunding-fund-too-late.scen.json");
 }
 
 #[test]
-fn moa_crowdfunding_init_go() {
-    world().run("scenarios/moa-crowdfunding-init.scen.json");
+fn moax_crowdfunding_init_go() {
+    world().run("scenarios/moax-crowdfunding-init.scen.json");
 }

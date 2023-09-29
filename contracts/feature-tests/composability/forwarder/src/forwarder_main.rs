@@ -35,7 +35,7 @@ pub trait Forwarder:
     fn init(&self) {}
 
     #[endpoint]
-    fn send_moa(&self, to: &ManagedAddress, amount: &BigUint) {
-        self.send().direct_moa(to, amount);
+    fn send_moax(&self, to: &ManagedAddress, amount: &BigUint) {
+        self.send().direct_moax(to, amount);
     }
 }

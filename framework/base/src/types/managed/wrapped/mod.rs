@@ -1,6 +1,6 @@
-mod moa_or_dct_token_identifier;
-mod moa_or_dct_token_payment;
-mod moa_or_multi_dct_payment;
+mod moax_or_dct_token_identifier;
+mod moax_or_dct_token_payment;
+mod moax_or_multi_dct_payment;
 mod encoded_managed_vec_item;
 mod dct_token_data;
 mod dct_token_payment;
@@ -18,9 +18,9 @@ pub(crate) mod preloaded_managed_buffer;
 mod randomness_source;
 mod token_identifier;
 
-pub use moa_or_dct_token_identifier::MoaOrDctTokenIdentifier;
-pub use moa_or_dct_token_payment::MoaOrDctTokenPayment;
-pub use moa_or_multi_dct_payment::MoaOrMultiDctPayment;
+pub use moax_or_dct_token_identifier::MoaxOrDctTokenIdentifier;
+pub use moax_or_dct_token_payment::MoaxOrDctTokenPayment;
+pub use moax_or_multi_dct_payment::MoaxOrMultiDctPayment;
 pub(crate) use encoded_managed_vec_item::EncodedManagedVecItem;
 pub use dct_token_data::DctTokenData;
 pub use dct_token_payment::DctTokenPayment;

@@ -1,7 +1,7 @@
 #![allow(deprecated)] // TODO: migrate tests
 
 use crowdfunding_dct::*;
-use dharitri_sc::types::{Address, MoaOrDctTokenIdentifier};
+use dharitri_sc::types::{Address, MoaxOrDctTokenIdentifier};
 use dharitri_sc_scenario::{
     managed_address, managed_biguint, managed_token_id, rust_biguint, testing_framework::*,
     DebugApi,
@@ -52,7 +52,7 @@ where
             sc.init(
                 target,
                 CF_DEADLINE,
-                MoaOrDctTokenIdentifier::dct(token_id),
+                MoaxOrDctTokenIdentifier::dct(token_id),
             );
         })
         .assert_ok();
@@ -139,7 +139,7 @@ fn test_sc_error() {
     let b_wrapper = &mut cf_setup.blockchain_wrapper;
     let user_addr = &cf_setup.first_user_address;
 
-    b_wrapper.set_moa_balance(user_addr, &rust_biguint!(1_000));
+    b_wrapper.set_moax_balance(user_addr, &rust_biguint!(1_000));
 
     b_wrapper
         .execute_tx(
@@ -161,7 +161,7 @@ fn test_sc_error() {
         .assert_ok();
 
     let mut sc_call = ScCallMandos::new(user_addr, cf_setup.cf_wrapper.address_ref(), "fund");
-    sc_call.add_moa_value(&rust_biguint!(1_000));
+    sc_call.add_moax_value(&rust_biguint!(1_000));
 
     let mut expect = TxExpectMandos::new(4);
     expect.set_message("wrong token");

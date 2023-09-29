@@ -19,7 +19,7 @@ pub struct QueuedCall<M: ManagedTypeApi> {
     pub gas_limit: u64,
     pub endpoint_name: ManagedBuffer<M>,
     pub args: ManagedArgBuffer<M>,
-    pub payments: MoaOrMultiDctPayment<M>,
+    pub payments: MoaxOrMultiDctPayment<M>,
 }
 
 /// Testing multiple calls per transaction.
@@ -86,7 +86,7 @@ pub trait ForwarderQueue {
         let mut payment = ManagedVec::new();
         payment.push(DctTokenPayment::new(token, 0, amount));
 
-        let payments = MoaOrMultiDctPayment::MultiDct(payment);
+        let payments = MoaxOrMultiDctPayment::MultiDct(payment);
 
         let call_type = QueuedCallType::Promise;
         self.queued_calls().push_back(QueuedCall {
@@ -124,10 +124,10 @@ pub trait ForwarderQueue {
         let payments = self.call_value().any_payment();
 
         match &payments {
-            MoaOrMultiDctPayment::Moa(moa_value) => {
-                self.add_queued_call_moa_event(&call_type, &to, &endpoint_name, moa_value);
+            MoaxOrMultiDctPayment::Moax(moax_value) => {
+                self.add_queued_call_moax_event(&call_type, &to, &endpoint_name, moax_value);
             },
-            MoaOrMultiDctPayment::MultiDct(dct_payments) => {
+            MoaxOrMultiDctPayment::MultiDct(dct_payments) => {
                 self.add_queued_call_dct_event(
                     &call_type,
                     &to,
@@ -154,15 +154,15 @@ pub trait ForwarderQueue {
             let call = node.clone().into_value();
 
             match &call.payments {
-                MoaOrMultiDctPayment::Moa(moa_value) => {
-                    self.forward_queued_call_moa_event(
+                MoaxOrMultiDctPayment::Moax(moax_value) => {
+                    self.forward_queued_call_moax_event(
                         &call.call_type,
                         &call.to,
                         &call.endpoint_name,
-                        moa_value,
+                        moax_value,
                     );
                 },
-                MoaOrMultiDctPayment::MultiDct(dct_payments) => {
+                MoaxOrMultiDctPayment::MultiDct(dct_payments) => {
                     self.forward_queued_call_dct_event(
                         &call.call_type,
                         &call.to,
@@ -227,13 +227,13 @@ pub trait ForwarderQueue {
     #[event("forward_queued_callback")]
     fn forward_queued_callback_event(&self);
 
-    #[event("forward_queued_call_moa")]
-    fn forward_queued_call_moa_event(
+    #[event("forward_queued_call_moax")]
+    fn forward_queued_call_moax_event(
         &self,
         #[indexed] call_type: &QueuedCallType,
         #[indexed] to: &ManagedAddress,
         #[indexed] endpoint_name: &ManagedBuffer,
-        #[indexed] moa_value: &BigUint,
+        #[indexed] moax_value: &BigUint,
     );
 
     #[event("forward_queued_call_dct")]
@@ -245,13 +245,13 @@ pub trait ForwarderQueue {
         #[indexed] multi_dct: &MultiValueEncoded<DctTokenPaymentMultiValue>,
     );
 
-    #[event("add_queued_call_moa")]
-    fn add_queued_call_moa_event(
+    #[event("add_queued_call_moax")]
+    fn add_queued_call_moax_event(
         &self,
         #[indexed] call_type: &QueuedCallType,
         #[indexed] to: &ManagedAddress,
         #[indexed] endpoint_name: &ManagedBuffer,
-        #[indexed] moa_value: &BigUint,
+        #[indexed] moax_value: &BigUint,
     );
 
     #[event("add_queued_call_dct")]

@@ -195,7 +195,7 @@
             "onlyOwner": true,
             "mutability": "mutable",
             "payableInTokens": [
-                "MOA"
+                "MOAX"
             ],
             "inputs": [
                 {
@@ -214,7 +214,7 @@
             "onlyOwner": true,
             "mutability": "mutable",
             "payableInTokens": [
-                "MOA"
+                "MOAX"
             ],
             "inputs": [
                 {
@@ -694,7 +694,7 @@
             "onlyOwner": true,
             "mutability": "mutable",
             "payableInTokens": [
-                "MOA"
+                "MOAX"
             ],
             "inputs": [
                 {

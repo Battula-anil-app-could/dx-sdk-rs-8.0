@@ -33,11 +33,11 @@ fn execute(state: &BlockchainState, accounts: &CheckAccounts) {
             );
 
             assert!(
-                expected_account.balance.check(&account.moa_balance),
+                expected_account.balance.check(&account.moax_balance),
                 "bad account balance. Address: {}. Want: {}. Have: {}",
                 expected_address,
                 expected_account.balance,
-                account.moa_balance
+                account.moax_balance
             );
 
             assert!(

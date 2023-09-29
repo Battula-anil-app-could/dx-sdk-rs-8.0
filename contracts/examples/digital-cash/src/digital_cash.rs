@@ -36,15 +36,15 @@ pub trait DigitalCash {
             "invalid depositor"
         );
 
-        let moa_payment = self.call_value().moa_value().clone_value();
+        let moax_payment = self.call_value().moax_value().clone_value();
         let dct_payment = self.call_value().all_dct_transfers().clone_value();
-        let num_tokens = self.get_num_token_transfers(&moa_payment, &dct_payment);
+        let num_tokens = self.get_num_token_transfers(&moax_payment, &dct_payment);
         require!(num_tokens > 0, "amount must be greater than 0");
 
         let fee = self.fee().get();
         deposit_mapper.update(|deposit| {
             require!(
-                deposit.moa_funds == 0 && deposit.dct_funds.is_empty(),
+                deposit.moax_funds == 0 && deposit.dct_funds.is_empty(),
                 "key already used"
             );
             require!(
@@ -56,7 +56,7 @@ pub trait DigitalCash {
             deposit.valability = valability;
             deposit.expiration_round = self.get_expiration_round(valability);
             deposit.dct_funds = dct_payment;
-            deposit.moa_funds = moa_payment;
+            deposit.moax_funds = moax_payment;
         });
     }
 
@@ -72,10 +72,10 @@ pub trait DigitalCash {
             "withdrawal has not been available yet"
         );
 
-        let moa_funds = deposit.moa_funds + deposit.fees.value;
-        if moa_funds > 0 {
+        let moax_funds = deposit.moax_funds + deposit.fees.value;
+        if moax_funds > 0 {
             self.send()
-                .direct_moa(&deposit.depositor_address, &moa_funds);
+                .direct_moax(&deposit.depositor_address, &moax_funds);
         }
 
         if !deposit.dct_funds.is_empty() {
@@ -108,9 +108,9 @@ pub trait DigitalCash {
         self.collected_fees()
             .update(|collected_fees| *collected_fees += fee_cost);
 
-        if deposit.moa_funds > 0 {
+        if deposit.moax_funds > 0 {
             self.send()
-                .direct_moa(&caller_address, &deposit.moa_funds);
+                .direct_moax(&caller_address, &deposit.moax_funds);
         }
         if !deposit.dct_funds.is_empty() {
             self.send()
@@ -118,7 +118,7 @@ pub trait DigitalCash {
         }
         if deposit.fees.value > 0 {
             self.send()
-                .direct_moa(&deposit.depositor_address, &deposit.fees.value);
+                .direct_moax(&deposit.depositor_address, &deposit.fees.value);
         }
     }
 
@@ -131,13 +131,13 @@ pub trait DigitalCash {
         }
 
         let caller_address = self.blockchain().get_caller();
-        self.send().direct_moa(&caller_address, &fees);
+        self.send().direct_moax(&caller_address, &fees);
     }
 
     #[endpoint(depositFees)]
-    #[payable("MOA")]
+    #[payable("MOAX")]
     fn deposit_fees(&self, address: ManagedAddress) {
-        let payment = self.call_value().moa_value().clone_value();
+        let payment = self.call_value().moax_value().clone_value();
         let caller_address = self.blockchain().get_caller();
         let deposit_mapper = self.deposit(&address);
         if !deposit_mapper.is_empty() {
@@ -149,7 +149,7 @@ pub trait DigitalCash {
         let new_deposit = DepositInfo {
             depositor_address: caller_address,
             dct_funds: ManagedVec::new(),
-            moa_funds: BigUint::zero(),
+            moax_funds: BigUint::zero(),
             valability: 0,
             expiration_round: 0,
             fees: Fee {
@@ -178,7 +178,7 @@ pub trait DigitalCash {
         let num_tokens = forwarded_deposit.get_num_tokens();
         deposit_mapper.update(|deposit| {
             require!(
-                deposit.moa_funds == BigUint::zero() && deposit.dct_funds.is_empty(),
+                deposit.moax_funds == BigUint::zero() && deposit.dct_funds.is_empty(),
                 "key already used"
             );
             require!(
@@ -190,7 +190,7 @@ pub trait DigitalCash {
             deposit.valability = forwarded_deposit.valability;
             deposit.expiration_round = self.get_expiration_round(forwarded_deposit.valability);
             deposit.dct_funds = forwarded_deposit.dct_funds;
-            deposit.moa_funds = forwarded_deposit.moa_funds;
+            deposit.moax_funds = forwarded_deposit.moax_funds;
         });
 
         let forward_fee = &fee * num_tokens as u64;
@@ -200,7 +200,7 @@ pub trait DigitalCash {
             .update(|collected_fees| *collected_fees += forward_fee);
 
         if forwarded_deposit.fees.value > 0 {
-            self.send().direct_moa(
+            self.send().direct_moax(
                 &forwarded_deposit.depositor_address,
                 &forwarded_deposit.fees.value,
             );
@@ -213,15 +213,15 @@ pub trait DigitalCash {
     fn get_amount(
         &self,
         address: ManagedAddress,
-        token: MoaOrDctTokenIdentifier,
+        token: MoaxOrDctTokenIdentifier,
         nonce: u64,
     ) -> BigUint {
         let deposit_mapper = self.deposit(&address);
         require!(!deposit_mapper.is_empty(), NON_EXISTENT_KEY_ERR_MSG);
 
         let deposit = deposit_mapper.get();
-        if token.is_moa() {
-            return deposit.moa_funds;
+        if token.is_moax() {
+            return deposit.moax_funds;
         }
 
         for dct in deposit.dct_funds.into_iter() {
@@ -242,11 +242,11 @@ pub trait DigitalCash {
 
     fn get_num_token_transfers(
         &self,
-        moa_value: &BigUint,
+        moax_value: &BigUint,
         dct_transfers: &ManagedVec<DctTokenPayment>,
     ) -> usize {
         let mut amount = dct_transfers.len();
-        if moa_value > &0 {
+        if moax_value > &0 {
             amount += 1;
         }
 

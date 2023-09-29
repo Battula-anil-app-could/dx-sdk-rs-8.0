@@ -108,7 +108,7 @@
                     "nonce": "0",
                     "balance": "175064792195269569513",
                     "dct": {
-                        "str:WMOA-6cf38e": {
+                        "str:WMOAX-6cf38e": {
                             "instances": [],
                             "roles": [
                                 "DCTRoleLocalBurn",
@@ -160,7 +160,7 @@
             "tx": {
                 "from": "0xe32afedc904fe1939746ad973beb383563cf63642ba669b3040f9b9428a5ed60",
                 "to": "0x000000000000000005000778538f60be51f1363879297a487329bd6fa37fed60",
-                "moaValue": "0,050000000000000000",
+                "moaxValue": "0,050000000000000000",
                 "gasLimit": "50,000"
             }
         },

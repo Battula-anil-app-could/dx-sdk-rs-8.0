@@ -6,8 +6,8 @@ use crate::{
     dharitri_sc::{
         codec::TopEncodeMulti,
         types::{
-            ContractCall, ContractCallNoPayment, ContractCallWithMoa,
-            ContractCallWithMoaOrSingleDct, ContractCallWithMultiDct, ContractDeploy,
+            ContractCall, ContractCallNoPayment, ContractCallWithMoax,
+            ContractCallWithMoaxOrSingleDct, ContractCallWithMultiDct, ContractDeploy,
         },
     },
 };
@@ -46,8 +46,8 @@ macro_rules! impl_into_blockchain_call_cc {
 }
 
 impl_into_blockchain_call_cc! {ContractCallNoPayment}
-impl_into_blockchain_call_cc! {ContractCallWithMoa}
-impl_into_blockchain_call_cc! {ContractCallWithMoaOrSingleDct}
+impl_into_blockchain_call_cc! {ContractCallWithMoax}
+impl_into_blockchain_call_cc! {ContractCallWithMoaxOrSingleDct}
 impl_into_blockchain_call_cc! {ContractCallWithMultiDct}
 
 impl<OriginalResult> IntoBlockchainCall for ContractDeploy<StaticApi, OriginalResult> {

@@ -1,7 +1,7 @@
 use dharitri_sc::{
     hex_literal::hex,
     types::{
-        BigInt, BigUint, MoaOrDctTokenIdentifier, ManagedAddress, ManagedBuffer,
+        BigInt, BigUint, MoaxOrDctTokenIdentifier, ManagedAddress, ManagedBuffer,
         ManagedByteArray, ManagedVec, TokenIdentifier,
     },
 };
@@ -72,15 +72,15 @@ fn test_managed_vec_format_biguint() {
 }
 
 #[test]
-fn test_managed_vec_format_moa_or_dct() {
-    let mut mv = ManagedVec::<StaticApi, MoaOrDctTokenIdentifier<StaticApi>>::new();
-    mv.push(MoaOrDctTokenIdentifier::moa());
-    mv.push(MoaOrDctTokenIdentifier::dct(TokenIdentifier::from(
+fn test_managed_vec_format_moax_or_dct() {
+    let mut mv = ManagedVec::<StaticApi, MoaxOrDctTokenIdentifier<StaticApi>>::new();
+    mv.push(MoaxOrDctTokenIdentifier::moax());
+    mv.push(MoaxOrDctTokenIdentifier::dct(TokenIdentifier::from(
         "MYTOKEN-5678",
     )));
     let s = format!("{:?}", &mv);
     assert_eq!(
-        "[MoaOrDctTokenIdentifier::Moa, MoaOrDctTokenIdentifier::Dct(\"MYTOKEN-5678\")]",
+        "[MoaxOrDctTokenIdentifier::Moax, MoaxOrDctTokenIdentifier::Dct(\"MYTOKEN-5678\")]",
         s
     );
 }

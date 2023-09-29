@@ -5,15 +5,15 @@ use crate::codec::TopEncodeMulti;
 use crate::{
     api::CallTypeApi,
     types::{
-        BigUint, MoaOrDctTokenIdentifier, MoaOrDctTokenPayment, MoaOrMultiDctPayment,
+        BigUint, MoaxOrDctTokenIdentifier, MoaxOrDctTokenPayment, MoaxOrMultiDctPayment,
         DctTokenPayment, ManagedAddress, ManagedBuffer, ManagedVec, TokenIdentifier,
     },
 };
 
 use super::{
-    contract_call_exec::UNSPECIFIED_GAS_LIMIT, contract_call_with_moa::ContractCallWithMoa,
+    contract_call_exec::UNSPECIFIED_GAS_LIMIT, contract_call_with_moax::ContractCallWithMoax,
     contract_call_with_multi_dct::ContractCallWithMultiDct, ContractCall,
-    ContractCallWithAnyPayment, ContractCallWithMoaOrSingleDct, ManagedArgBuffer,
+    ContractCallWithAnyPayment, ContractCallWithMoaxOrSingleDct, ManagedArgBuffer,
 };
 
 /// Holds metadata for calling another contract, without payments.
@@ -43,10 +43,10 @@ where
     type OriginalResult = OriginalResult;
 
     #[inline]
-    fn into_normalized(self) -> ContractCallWithMoa<SA, Self::OriginalResult> {
-        ContractCallWithMoa {
+    fn into_normalized(self) -> ContractCallWithMoax<SA, Self::OriginalResult> {
+        ContractCallWithMoax {
             basic: self,
-            moa_payment: BigUint::zero(),
+            moax_payment: BigUint::zero(),
         }
     }
 
@@ -56,7 +56,7 @@ where
     }
 
     fn transfer_execute(self) {
-        self.transfer_execute_moa(BigUint::zero());
+        self.transfer_execute_moax(BigUint::zero());
     }
 }
 
@@ -75,14 +75,14 @@ where
         }
     }
 
-    /// Sets payment to be MOA transfer.
-    pub fn with_moa_transfer(
+    /// Sets payment to be MOAX transfer.
+    pub fn with_moax_transfer(
         self,
-        moa_amount: BigUint<SA>,
-    ) -> ContractCallWithMoa<SA, OriginalResult> {
-        ContractCallWithMoa {
+        moax_amount: BigUint<SA>,
+    ) -> ContractCallWithMoax<SA, OriginalResult> {
+        ContractCallWithMoax {
             basic: self,
-            moa_payment: moa_amount,
+            moax_payment: moax_amount,
         }
     }
 
@@ -130,7 +130,7 @@ where
     #[inline]
     pub fn with_any_payment(
         self,
-        payment: MoaOrMultiDctPayment<SA>,
+        payment: MoaxOrMultiDctPayment<SA>,
     ) -> ContractCallWithAnyPayment<SA, OriginalResult> {
         ContractCallWithAnyPayment {
             basic: self,
@@ -138,12 +138,12 @@ where
         }
     }
 
-    /// Sets payment to be either MOA or a single DCT transfer, as determined at runtime.
-    pub fn with_moa_or_single_dct_transfer<P: Into<MoaOrDctTokenPayment<SA>>>(
+    /// Sets payment to be either MOAX or a single DCT transfer, as determined at runtime.
+    pub fn with_moax_or_single_dct_transfer<P: Into<MoaxOrDctTokenPayment<SA>>>(
         self,
         payment: P,
-    ) -> ContractCallWithMoaOrSingleDct<SA, OriginalResult> {
-        ContractCallWithMoaOrSingleDct {
+    ) -> ContractCallWithMoaxOrSingleDct<SA, OriginalResult> {
+        ContractCallWithMoaxOrSingleDct {
             basic: self,
             payment: payment.into(),
         }
@@ -151,14 +151,14 @@ where
 
     #[deprecated(
         since = "0.39.0",
-        note = "Replace by `contract_call.with_moa_or_single_dct_transfer((payment_token, payment_nonce, payment_amount))`. "
+        note = "Replace by `contract_call.with_moax_or_single_dct_transfer((payment_token, payment_nonce, payment_amount))`. "
     )]
-    pub fn with_moa_or_single_dct_token_transfer(
+    pub fn with_moax_or_single_dct_token_transfer(
         self,
-        payment_token: MoaOrDctTokenIdentifier<SA>,
+        payment_token: MoaxOrDctTokenIdentifier<SA>,
         payment_nonce: u64,
         payment_amount: BigUint<SA>,
-    ) -> ContractCallWithMoaOrSingleDct<SA, OriginalResult> {
-        self.with_moa_or_single_dct_transfer((payment_token, payment_nonce, payment_amount))
+    ) -> ContractCallWithMoaxOrSingleDct<SA, OriginalResult> {
+        self.with_moax_or_single_dct_transfer((payment_token, payment_nonce, payment_amount))
     }
 }

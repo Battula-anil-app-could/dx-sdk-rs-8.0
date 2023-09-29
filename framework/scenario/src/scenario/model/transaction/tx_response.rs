@@ -291,7 +291,7 @@ mod tests {
                         ]
                       },
                       "tokens": [
-                        "WMOA-d7c6bb"
+                        "WMOAX-d7c6bb"
                       ],
                       "dctValues": [
                         "253719210115084363"
@@ -354,7 +354,7 @@ mod tests {
                       "gasPrice": 1000000000,
                       "callType": 0,
                       "tokens": [
-                        "WMOA-d7c6bb"
+                        "WMOAX-d7c6bb"
                       ],
                       "dctValues": [
                         "254481327387056"
